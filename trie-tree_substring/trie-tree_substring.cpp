@@ -252,7 +252,7 @@ public:
         root->print(root, str);
     }
 
-    bool check_substring(string substring) {
+    bool check_substring(string substring, TrieNode* node = nullptr) {
         int l = substring.length();
 
         if (l == 0) {
@@ -260,11 +260,9 @@ public:
             return false;
         }
 
-        TrieNode* node = this->root;
-
-        //if (!node->hasChildren()) {
-        //    return false;
-        //}
+        if (!node->hasChildren()) {
+            return false;
+        }
 
         //TrieNode* T = nullptr;
 
@@ -291,9 +289,27 @@ public:
     }
 
 
-    //void search_words_with_substring(string substring) {
-    //    return;
-    //}
+    bool search_words_with_substring(string substring) {
+        int l = substring.length();
+
+        if (l == 0) {
+            cout << "Length substring is zero.";
+            return false;
+        }
+
+        TrieNode* node = this->root;
+
+        if (!node->hasChildren()) {
+            return false;
+        }
+
+        if (this->check_substring(substring, node))
+            return true;
+
+        //for (int i = 0; i < l; i++) {
+        //}
+
+    }
 
 };
 
@@ -301,12 +317,6 @@ int main()
 {
     setlocale(LC_ALL, "rus");
     TrieTree tree;
-    cout << "sdf" << endl;
-    //string test = "fsdf";
-    //if (tree.check_substring(test))
-    //    cout << "найдено!" << endl;
-    //else
-    //    cout << "не найдено!" << endl;
 
     string current = ".";
     int count = 0;
@@ -329,7 +339,7 @@ int main()
     string substring_;
     cout << "\nInput substring...\n";
     cin >> substring_;
-    if (tree.check_substring(substring_)) {
+    if (tree.search_words_with_substring(substring_)) {
         cout << "найдено!" << endl;
     }
 
